@@ -18,11 +18,15 @@ public class EvaluationService {
 	 * Otherwise if it is positive, calculate the value of miles per hour, round it
 	 * and return it. For conversion and rounding use Math.round().
 	 */
-	static class SpeedConverter {
+	 static class SpeedConverter {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			
+			
+			if (kilometersPerHour >= 0) {
+				return (long)Math.round(kilometersPerHour * 0.6214);
+			}
+			return -1;
 		}
 
 		/**
@@ -41,8 +45,12 @@ public class EvaluationService {
 		 * Value"
 		 */
 		public static String printConversion(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			
+			if (kilometersPerHour >= 0) {
+				long milesPerHour = toMilesPerHour(kilometersPerHour);//Math.round(kilometersPerHour * 0.6214);
+				return kilometersPerHour + " km/h = " + milesPerHour + " mi/h";
+			}
+			return "Invalid Value";
 		}
 	}
 
@@ -66,9 +74,14 @@ public class EvaluationService {
 	 * If the parameter kiloBytes is less than 0 then print the text "Invalid
 	 * Value".
 	 */
-	public String printMegaBytesAndKiloBytes(int XX) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public String printMegaBytesAndKiloBytes(int kilobytes) {
+		if (kilobytes >= 0) {
+			int MB = (kilobytes / 1024);
+			int KB = kilobytes % 1024;
+			return kilobytes + " KB = " + MB + " MB and " + KB + " KB";
+		}
+		return "Invalid Value";
+		
 	}
 
 	/**
@@ -91,7 +104,14 @@ public class EvaluationService {
 	 * If the hourOfDay parameter is less than 0 or greater than 23, return false.
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
-		// TODO Write an implementation for this method declaration
+		if (hourOfDay >=0 && hourOfDay <= 23) {
+			
+			if ((hourOfDay <= 8 || hourOfDay >= 22) && isBarking) {
+				return true;
+			}
+			return false;
+		}
+		
 		return false;
 	}
 
@@ -107,8 +127,10 @@ public class EvaluationService {
 	 * Otherwise, return false;
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		int num1 = (int)(firstNum * 1000);
+		int num2 = (int)(secondNum * 1000);
+		
+		return (num1 == num2);
 	}
 
 	/**
@@ -124,16 +146,14 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return (isTeen(x) || isTeen(y) || isTeen(z));
 		}
 
 		// We can initialize isTeen method first
 		// Then pass the parameter to hasTeen method
 
 		public static boolean isTeen(int number) {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return (number >= 13 && number <= 19);
 		}
 	}
 
@@ -153,8 +173,17 @@ public class EvaluationService {
 	 * ZZ represents the calculated days.
 	 */
 	public String printYearsAndDays(long minutes) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		if (minutes >= 0) {
+			long hour = minutes / 60;
+            long day = hour / 24;
+            long year = day / 365;
+            long remainingDays = day % 365;
+			return minutes + " min = " + year + " y and " + remainingDays + " d";
+		} 
+		return "Invalid Value";
+		
+		
 	}
 
 	/**
@@ -167,8 +196,46 @@ public class EvaluationService {
 	 * statement or switch statement whatever is easier for you.
 	 */
 	public String printNumberInWord(int number) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		String result = "";
+		
+		switch(number) {
+			case 0:
+				result = "ZERO";
+				break;
+			case 1:
+				result = "ONE";
+				break;
+			case 2:
+				result = "TWO";
+				break;
+			case 3:
+				result = "THREE";
+				break;
+			case 4:
+				result = "FOUR";
+				break;
+			case 5:
+				result = "FIVE";
+				break;
+			case 6:
+				result = "SIX";
+				break;
+			case 7:
+				result = "SEVEN";
+				break;
+			case 8:
+				result = "EIGHT";
+				break;
+			case 9:
+				result = "NINE";
+				break;
+			default:
+				result = "OTHER";
+		}
+		return result;
+	
+		
 	}
 
 	/**
@@ -191,8 +258,19 @@ public class EvaluationService {
 	 * and there is no resulting remainder.
 	 */
 	public int getGreatestCommonDivisor(int first, int second) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		if (first >= 10 && second >= 10) {
+			while (first != second) {
+				if (first > second) {
+					first -= second;
+				} else {
+					second -= first;
+				}
+			}
+			return first;
+		}
+		return -1;
+		
 	}
 
 	/**
@@ -209,8 +287,25 @@ public class EvaluationService {
 	 * invalid value.
 	 */
 	public int sumFirstAndLastDigit(int num) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (num >= 0 && num < 10) {
+			
+            return num;
+            
+        } else if (num >= 10) {
+        	
+            int lastDigit = num % 10;
+            
+            while (num >= 10) {
+
+                num /= 10;
+
+            }
+            
+            return lastDigit + num;
+
+        }
+		
+        return -1;
 	}
 
 	/**
@@ -220,8 +315,13 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		char[] result = string.toCharArray();
+		char[] reverse = new char[result.length];
+		
+		for (int i = result.length - 1; i >= 0; i--) {
+			reverse[i] = result[result.length - i - 1];
+		}
+		return new String(reverse);
 	}
 
 	/**
@@ -232,8 +332,19 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String result = "";
+		char letter = 0;
+		
+		String[] phraseArr = phrase.split("[-\\s]");
+		//System.out.println(phraseArr.toString());
+		for (int i = 0; i < phraseArr.length; i++) {
+			letter = phraseArr[i].charAt(0);
+			String strLetter = Character.toString(letter).toUpperCase();
+			result += strLetter;
+			
+		}
+		
+		return result;
 	}
 
 	/**
@@ -319,8 +430,18 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		String newString = string.toUpperCase();
+		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		int[] values = {1, 3, 3, 2, 1, 4, 2 , 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10}; 
+		int sumOfValues = 0;
+		for (int i = 0; i < alphabet.length(); i++) {
+			for (int j = 0; j < newString.length(); j++) {
+				if (alphabet.charAt(i) == newString.charAt(j)) {
+					sumOfValues += values[i];
+				}
+			}
+		}
+		return sumOfValues;
 	}
 
 	/**
